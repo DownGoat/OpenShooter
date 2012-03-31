@@ -3,6 +3,7 @@ package slick.OpenShooter.states;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -18,6 +19,20 @@ public class MainMenuState extends BasicGameState {
 	 */
 	private Image newGameImage;
 	
+	/**
+	 * New Game Image X offset.
+	 */
+	private final int newGameX = 50;
+	
+	/**
+	 * New Game Image Y offset.
+	 */
+	private final int newGameY = 150;
+	
+	/**
+	 * Increased if mouse is hoovering over New Game Image.
+	 */
+	private float hooverScale = 1.0f;
 	
 	private int stateID = -1;
 	 
@@ -39,14 +54,28 @@ public class MainMenuState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		background.draw(0, 0);
-		newGameImage.draw(50, 150);
-		
+		newGameImage.draw(newGameX, newGameY, hooverScale);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		Input input = gc.getInput();
+		
+		int mouseX = input.getMouseX();
+        int mouseY = input.getMouseY();
+        
+        if((mouseX <= newGameX+newGameImage.getWidth() && mouseX >= newGameX) && 
+        		(mouseY <= newGameY+newGameImage.getHeight() && mouseY >= newGameY)) {
+        	hooverScale = 1.05f;
+        }
+        
+        else {
+        	hooverScale = 1.0f;
+        }
+        
+        if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+        }
 		
 	}
 
