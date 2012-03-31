@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 
 public class Main extends BasicGame {
 
+	Plane planeobj = new Plane();
 	Image plane = null;
 	Image land = null;
 	Image bullet = null;
@@ -34,7 +35,6 @@ public class Main extends BasicGame {
 		plane = new Image("src/sprites/b52.png");
 		land = new Image("src/sprites/land.jpg");
 		bullet = new Image("src/sprites/bullet.png");
-		Plane plane = new Plane();
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class Main extends BasicGame {
 
 		if (input.isKeyDown(Input.KEY_A)) // Very poorly optimised TODO
 		{
-			plane.MoveLeft(350,400,0,0);
+			planeobj.moveLeft(350,400,0,0);
 		}
 
 		if (input.isKeyDown(Input.KEY_D)) {
