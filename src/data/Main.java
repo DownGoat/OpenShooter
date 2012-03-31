@@ -37,7 +37,7 @@ public class Main extends BasicGame {
 	public void update(GameContainer gc, int delta) throws SlickException {
 		Input input = gc.getInput();
 
-		if (input.isKeyDown(Input.KEY_A)) // Very poorly optimised TODO
+		if (input.isKeyDown(Input.KEY_A)) //TODO Very poorly optimised TODO
 		{
 //			plane.moveLeft(350, 400, 0, 0);
 		}
