@@ -36,6 +36,12 @@ public class Main extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
+		
+		try {
+			Thread.sleep(30);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Input input = gc.getInput();
 
 		if (input.isKeyDown(Input.KEY_A)) // Very poorly optimised TODO
