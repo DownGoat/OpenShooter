@@ -42,17 +42,23 @@ public class Main extends BasicGame{
 	    {
 	        Input input = gc.getInput();
 	 
-	        if(input.isKeyDown(Input.KEY_A))
+	        if(input.isKeyDown(Input.KEY_A)) //Very poorly optimised TODO
 	        {
 	        	if(x>0){
-	            x-=0.5;
+	        		if(xv<0.5){
+	        		xv+=0.005; //Velocity acceleration
+	        		}
+	        		x-=0.05 + xv; //initial velocity plus acceleration
 	        	}
 	        }
-	 
+	        
 	        if(input.isKeyDown(Input.KEY_D))
 	        {
 	        	if(x<655){
-		        x+=0.5;
+	        		if(xv<0.5){
+	        		xv+=0.005; //Velocity acceleration
+	        		}
+	        		x+=0.05 + xv; //initial velocity plus acceleration
 	        	}
 	        }
 	 
@@ -82,6 +88,7 @@ public class Main extends BasicGame{
 	        {
 	        	//TODO make it shoot bullets
 	        }
+	        
 	    }
 	 
 	    public void render(GameContainer gc, Graphics g)
