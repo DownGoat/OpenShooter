@@ -10,20 +10,13 @@ import org.newdawn.slick.SlickException;
 
 public class Main extends BasicGame {
 
-	Plane planeobj = new Plane();
-	Image plane = null;
 	Image land = null;
-	Image bullet = null;
-	float x = 350;
-	float y = 400;
-	float xv = 0; // plane acceleration X
-	float yv = 0; // plane acceleration Y
 	float bxv = 10; // supposed to be bullet velocity X
 	float byv = 0; // supposed to be bullet velocity Y
-	float bx = x + bxv; // bullet x = x-position to plane + bullet velocity
-						// //TODO
-	float by = y + byv; // bullet y = y-position to plane + bullet velocity
-						// //TODO
+	// float bx = x + bxv; // bullet x = x-position to plane + bullet velocity
+	// //TODO
+	// float by = y + byv; // bullet y = y-position to plane + bullet velocity
+	// //TODO
 	float scale = 1;
 
 	public Main() {
@@ -32,9 +25,8 @@ public class Main extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		plane = new Image("src/sprites/b52.png");
+		Plane plane = new Plane();
 		land = new Image("src/sprites/land.jpg");
-		bullet = new Image("src/sprites/bullet.png");
 	}
 
 	@Override
@@ -43,37 +35,28 @@ public class Main extends BasicGame {
 
 		if (input.isKeyDown(Input.KEY_A)) // Very poorly optimised TODO
 		{
-			planeobj.moveLeft(350,400,0,0);
+//			plane.moveLeft(350, 400, 0, 0);
 		}
 
 		if (input.isKeyDown(Input.KEY_D)) {
-			if (x < 655) {
-				if (xv < 0.5) {
-					xv += 0.005; // Velocity acceleration
-				}
-				x += 0.05 + xv; // initial velocity plus acceleration
-			}
+	//		plane.moveRight(350, 400, 0, 0);
 		}
 
 		if (input.isKeyDown(Input.KEY_W)) {
-			if (y > 50) {
-				y -= 0.5;
-			}
+		//	if (y > 50) {
 		}
 		if (input.isKeyDown(Input.KEY_S)) {
-			if (y < 450) {
-				y += 0.5;
-			}
+		//	if (y < 450) {
 		}
 		if (input.isKeyDown(Input.KEY_2)) {
 			scale += (scale >= 5.0f) ? 0 : 0.1f;
-			plane.setCenterOfRotation(plane.getWidth() / 2.0f * scale,
-					plane.getHeight() / 2.0f * scale);
+		//	plane.setCenterOfRotation(plane.getWidth() / 2.0f * scale,
+	//				plane.getHeight() / 2.0f * scale);
 		}
 		if (input.isKeyDown(Input.KEY_1)) {
 			scale -= (scale <= 1.0f) ? 0 : 0.1f;
-			plane.setCenterOfRotation(plane.getWidth() / 2.0f * scale,
-					plane.getHeight() / 2.0f * scale);
+	//		plane.setCenterOfRotation(plane.getWidth() / 2.0f * scale,
+	//				plane.getHeight() / 2.0f * scale);
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
 			// TODO make it shoot bullets
@@ -84,7 +67,7 @@ public class Main extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		land.draw(0, 0);
 
-		plane.draw(x, y, scale);
+		plane.draw(x, y);
 
 	}
 
