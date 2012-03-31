@@ -14,6 +14,7 @@ public class Main extends BasicGame {
 
 	Image land = null;
 	Plane plane;
+	Bullet bullet;
 
 	float scale = 1;
 	
@@ -64,6 +65,8 @@ public class Main extends BasicGame {
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
 			// TODO make it shoot bullets
+			bullet = new Bullet(plane.getX(), plane.getY());
+			entities.add(bullet);
 		}
 
 	}
