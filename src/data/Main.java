@@ -47,10 +47,10 @@ public class Main extends BasicGame {
 		}
 
 		if (input.isKeyDown(Input.KEY_W)) {
-		//	if (y > 50) {
+		plane.moveUp(1,1);
 		}
 		if (input.isKeyDown(Input.KEY_S)) {
-		//	if (y < 450) {
+		plane.moveDown(1,1);
 		}
 		if (input.isKeyDown(Input.KEY_2)) {
 			scale += (scale >= 5.0f) ? 0 : 0.1f;

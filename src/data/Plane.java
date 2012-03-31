@@ -38,12 +38,18 @@ public class Plane extends SuperObject  {
 		this.updatePosition(x, y);
 	}
 
-	public void moveUp(float x, float y, float velx, float vely) {
-
+	public void moveUp(float velx, float vely) {
+		if (y > 50) {
+			y-=1;
+		}
+		this.updatePosition(x, y);
 	}
 
-	public void moveDown(float x, float y, float velx, float vely) {
-
+	public void moveDown(float velx, float vely) {
+		if (y < 450) {
+			y+=1;
+		}
+		this.updatePosition(x, y);
 	}
 
 	@Override
