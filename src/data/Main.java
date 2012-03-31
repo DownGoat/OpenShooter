@@ -26,7 +26,7 @@ public class Main extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		entities = new ArrayList<GameObject>();
-		plane = new Plane();
+		plane = new Plane(300, 400);
 		entities.add(plane);
 		
 		
@@ -39,11 +39,11 @@ public class Main extends BasicGame {
 
 		if (input.isKeyDown(Input.KEY_A)) // Very poorly optimised TODO
 		{
-//			plane.moveLeft(350, 400, 0, 0);
+			plane.moveLeft(1, 1);
 		}
 
 		if (input.isKeyDown(Input.KEY_D)) {
-	//		plane.moveRight(350, 400, 0, 0);
+		plane.moveRight(1, 1);
 		}
 
 		if (input.isKeyDown(Input.KEY_W)) {

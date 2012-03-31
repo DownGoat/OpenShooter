@@ -7,7 +7,7 @@ public class Plane extends SuperObject  {
 	
 	Image sprite = null;
 
-	public Plane() {
+	public Plane(float x, float y) {
 		try {
 			sprite = new Image("src/sprites/b52.png");
 		} catch (SlickException e) {
@@ -15,24 +15,27 @@ public class Plane extends SuperObject  {
 			e.printStackTrace();
 			System.exit(0);
 		}
+		this.updatePosition(x, y);
 	}
 
-	public void moveLeft(float x, float y, float velx, float vely) {
+	public void moveLeft(float velx, float vely) {
 		if (x > 0) {
 			if (velx < 0.5) {
 				velx += 0.005; // Velocity acceleration
 			}
 			x -= 0.05 + velx; // initial velocity plus acceleration
 		}
+		this.updatePosition(x, y);
 	}
 
-	public void moveRight(float x, float y, float velx, float vely) {
+	public void moveRight(float velx, float vely) {
 		if (x < 655) {
 			if (velx < 0.5) {
 				velx += 0.005; // Velocity acceleration
 			}
 			x += 0.05 + velx; // initial velocity plus acceleration
 		}
+		this.updatePosition(x, y);
 	}
 
 	public void moveUp(float x, float y, float velx, float vely) {
