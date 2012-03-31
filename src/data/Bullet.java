@@ -8,7 +8,7 @@ public class Bullet extends SuperObject {
 	Image sprite = null;
 
 	public Bullet(float x, float y){
-		vely = 3;
+		vely = 8;
 		this.x = x + velx;
 		this.y = y - vely;
 		

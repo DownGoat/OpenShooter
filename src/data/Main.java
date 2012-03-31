@@ -16,7 +16,8 @@ public class Main extends BasicGame {
 	Image land = null;
 	Sound shot = null;
 	Plane plane;
-	Bullet bullet;
+	Bullet bullet1;
+	Bullet bullet2;
 
 	float scale = 1;
 	int timer = 0;
@@ -24,7 +25,7 @@ public class Main extends BasicGame {
 	private ArrayList<GameObject> entities;
 
 	public Main() {
-		super("Slick2D Path2Glory - SlickBasicGame");
+		super("OpenShooter - Now with 47% more bullets");
 	}
 
 	@Override
@@ -74,8 +75,10 @@ public class Main extends BasicGame {
 			if(timer > 10){
 				timer = 0;
 			}else if(timer == 1){
-			bullet = new Bullet(plane.getX(), plane.getY());
-			entities.add(bullet);
+			bullet1 = new Bullet(plane.getX(), plane.getY()+35);
+			entities.add(bullet1);
+			bullet2 = new Bullet(plane.getX()+135, plane.getY()+35);
+			entities.add(bullet2);
 			shot.play();
 			}
 		}
