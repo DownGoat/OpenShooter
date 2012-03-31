@@ -13,8 +13,10 @@ public class Main extends BasicGame{
 	 Image plane = null;
 	    Image land = null;
 	    	Image bullet = null;
-	    float x = 400;
-	    float y = 300;
+	    float x = 350;
+	    float y = 400;
+	    float xv = 0;  //plane acceleration X
+	    float yv = 0;	//plane acceleration Y
 	    float bxv = 10; //supposed to be bullet velocity X
 	    float byv = 0;	//supposed to be bullet velocity Y
 	    float bx = x + bxv; //bullet x = x-position to plane + bullet velocity //TODO
@@ -42,24 +44,30 @@ public class Main extends BasicGame{
 	 
 	        if(input.isKeyDown(Input.KEY_A))
 	        {
-	            plane.rotate(-0.2f * delta);
+	        	if(x>0){
+	            x-=0.5;
+	        	}
 	        }
 	 
 	        if(input.isKeyDown(Input.KEY_D))
 	        {
-	            plane.rotate(0.2f * delta);
+	        	if(x<655){
+		        x+=0.5;
+	        	}
 	        }
 	 
 	        if(input.isKeyDown(Input.KEY_W))
 	        {
-	            float hip = 0.4f * delta;
-	 
-	            float rotation = plane.getRotation();
-	 
-	            x+= hip * Math.sin(Math.toRadians(rotation));
-	            y-= hip * Math.cos(Math.toRadians(rotation));
+	        	if(y>50){
+			    y-=0.5;
+		        }
 	        }
-	 
+	        if(input.isKeyDown(Input.KEY_S))
+	        {
+	        	if(y<450){
+		        y+=0.5;
+	        	}
+	        }
 	        if(input.isKeyDown(Input.KEY_2))
 	        {
 	            scale += (scale >= 5.0f) ? 0 : 0.1f;
