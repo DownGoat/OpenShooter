@@ -33,8 +33,6 @@ public class Main extends BasicGame{
 			throws SlickException
     {
         Input input = gc.getInput();
- 
-        if(input.isKeyDown(Input.KEY_A))
         {
             plane.rotate(-0.2f * delta);
         }
