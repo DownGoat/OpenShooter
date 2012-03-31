@@ -10,76 +10,88 @@ import org.newdawn.slick.SlickException;
  
 public class Main extends BasicGame{
  
-    Image plane = null;
-    Image land = null;
-    float x = 400;
-    float y = 300;
-    float scale = 1;
- 
-    public Main()
-    {
-        super("Slick2D Path2Glory - SlickBasicGame");
-    }
- 
-    @Override
-    public void init(GameContainer gc)
-			throws SlickException {
-        plane = new Image("src/sprites/b52.png");
-        land = new Image("src/sprites/land.jpg");
-    }
- 
-    @Override
-    public void update(GameContainer gc, int delta)
-			throws SlickException
-    {
-        Input input = gc.getInput();
-        {
-            plane.rotate(-0.2f * delta);
-        }
- 
-        if(input.isKeyDown(Input.KEY_D))
-        {
-            plane.rotate(0.2f * delta);
-        }
- 
-        if(input.isKeyDown(Input.KEY_W))
-        {
-            float hip = 0.4f * delta;
- 
-            float rotation = plane.getRotation();
- 
-            x+= hip * Math.sin(Math.toRadians(rotation));
-            y-= hip * Math.cos(Math.toRadians(rotation));
-        }
- 
-        if(input.isKeyDown(Input.KEY_2))
-        {
-            scale += (scale >= 5.0f) ? 0 : 0.1f;
-            plane.setCenterOfRotation(plane.getWidth()/2.0f*scale, plane.getHeight()/2.0f*scale);
-        }
-        if(input.isKeyDown(Input.KEY_1))
-        {
-            scale -= (scale <= 1.0f) ? 0 : 0.1f;
-            plane.setCenterOfRotation(plane.getWidth()/2.0f*scale, plane.getHeight()/2.0f*scale);
-        }
-    }
- 
-    public void render(GameContainer gc, Graphics g)
-			throws SlickException
-    {
-        land.draw(0, 0);
- 
-        plane.draw(x, y, scale);
- 
-    }
- 
-    public static void main(String[] args)
-			throws SlickException
-    {
-         AppGameContainer app =
-			new AppGameContainer( new Main() );
- 
-         app.setDisplayMode(800, 600, false);
-         app.start();
-    }
+	 Image plane = null;
+	    Image land = null;
+	    	Image bullet = null;
+	    float x = 400;
+	    float y = 300;
+	    float bxv = 10; //supposed to be bullet velocity X
+	    float byv = 0;	//supposed to be bullet velocity Y
+	    float bx = x + bxv; //bullet x = x-position to plane + bullet velocity //TODO
+	    float by = y + byv;	//bullet y = y-position to plane + bullet velocity //TODO
+	    float scale = 1;
+	 
+	    public Main()
+	    {
+	        super("Slick2D Path2Glory - SlickBasicGame");
+	    }
+	 
+	    @Override
+	    public void init(GameContainer gc)
+				throws SlickException {
+	        plane = new Image("src/sprites/b52.png");
+	        land = new Image("src/sprites/land.jpg");
+        	bullet = new Image("src/sprites/bullet.png");
+	    }
+	 
+	    @Override
+	    public void update(GameContainer gc, int delta)
+				throws SlickException
+	    {
+	        Input input = gc.getInput();
+	 
+	        if(input.isKeyDown(Input.KEY_A))
+	        {
+	            plane.rotate(-0.2f * delta);
+	        }
+	 
+	        if(input.isKeyDown(Input.KEY_D))
+	        {
+	            plane.rotate(0.2f * delta);
+	        }
+	 
+	        if(input.isKeyDown(Input.KEY_W))
+	        {
+	            float hip = 0.4f * delta;
+	 
+	            float rotation = plane.getRotation();
+	 
+	            x+= hip * Math.sin(Math.toRadians(rotation));
+	            y-= hip * Math.cos(Math.toRadians(rotation));
+	        }
+	 
+	        if(input.isKeyDown(Input.KEY_2))
+	        {
+	            scale += (scale >= 5.0f) ? 0 : 0.1f;
+	            plane.setCenterOfRotation(plane.getWidth()/2.0f*scale, plane.getHeight()/2.0f*scale);
+	        }
+	        if(input.isKeyDown(Input.KEY_1))
+	        {
+	            scale -= (scale <= 1.0f) ? 0 : 0.1f;
+	            plane.setCenterOfRotation(plane.getWidth()/2.0f*scale, plane.getHeight()/2.0f*scale);
+	        }
+	        if(input.isKeyDown(Input.KEY_SPACE))
+	        {
+	        	//TODO make it shoot bullets
+	        }
+	    }
+	 
+	    public void render(GameContainer gc, Graphics g)
+				throws SlickException
+	    {
+	        land.draw(0, 0);
+	 
+	        plane.draw(x, y, scale);
+	        
+	    }
+	 
+	    public static void main(String[] args)
+				throws SlickException
+	    {
+	         AppGameContainer app =
+				new AppGameContainer( new Main() );
+	 
+	         app.setDisplayMode(800, 600, false);
+	         app.start();
+	    }
 }
