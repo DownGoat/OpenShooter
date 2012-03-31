@@ -1,11 +1,12 @@
-package slickOpenShooter;
+package data;
+
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
 import slick.OpenShooter.game.*;
 
-public class RunGame {
+public class Driver {
 
 	/**
 	 * @param args
