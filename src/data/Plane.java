@@ -5,10 +5,16 @@ import org.newdawn.slick.SlickException;
 
 public class Plane extends SuperObject  {
 	
-	Image plane = null;
+	Image sprite = null;
 
-	public Plane() throws SlickException {
-		plane = new Image("src/sprites/b52.png");
+	public Plane() {
+		try {
+			sprite = new Image("src/sprites/b52.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(0);
+		}
 	}
 
 	public void moveLeft(float x, float y, float velx, float vely) {
@@ -35,6 +41,11 @@ public class Plane extends SuperObject  {
 
 	public void moveDown(float x, float y, float velx, float vely) {
 
+	}
+
+	@Override
+	public void draw() {
+		sprite.draw(x, y);
 	}
 
 }

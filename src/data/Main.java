@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -11,13 +13,11 @@ import org.newdawn.slick.SlickException;
 public class Main extends BasicGame {
 
 	Image land = null;
-	float bxv = 10; // supposed to be bullet velocity X
-	float byv = 0; // supposed to be bullet velocity Y
-	// float bx = x + bxv; // bullet x = x-position to plane + bullet velocity
-	// //TODO
-	// float by = y + byv; // bullet y = y-position to plane + bullet velocity
-	// //TODO
+	Plane plane;
+
 	float scale = 1;
+	
+	private ArrayList<GameObject> entities;
 
 	public Main() {
 		super("Slick2D Path2Glory - SlickBasicGame");
@@ -25,7 +25,11 @@ public class Main extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		Plane plane = new Plane();
+		entities = new ArrayList<GameObject>();
+		plane = new Plane();
+		entities.add(plane);
+		
+		
 		land = new Image("src/sprites/land.jpg");
 	}
 
@@ -67,8 +71,9 @@ public class Main extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		land.draw(0, 0);
 
-		plane.draw(x, y);
-
+		for(GameObject go: entities) {
+			go.draw();
+		}
 	}
 
 	public static void main(String[] args) throws SlickException {
