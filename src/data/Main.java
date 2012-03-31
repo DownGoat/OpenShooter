@@ -9,10 +9,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
 public class Main extends BasicGame {
 
 	Image land = null;
+	Sound shot = null;
 	Plane plane;
 	Bullet bullet;
 
@@ -26,22 +28,18 @@ public class Main extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
+		gc.setVSync(true);
 		entities = new ArrayList<GameObject>();
 		plane = new Plane(300, 400);
 		entities.add(plane);
 		
-		
+		shot = new Sound("src/sounds/shot.wav");
 		land = new Image("src/sprites/land.jpg");
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		
-		try {
-			Thread.sleep(30);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		Input input = gc.getInput();
 
 		if (input.isKeyDown(Input.KEY_A)) // Very poorly optimised TODO
@@ -73,6 +71,7 @@ public class Main extends BasicGame {
 			// TODO make it shoot bullets
 			bullet = new Bullet(plane.getX(), plane.getY());
 			entities.add(bullet);
+			shot.play();
 		}
 
 	}
