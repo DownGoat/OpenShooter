@@ -19,6 +19,7 @@ public class Main extends BasicGame {
 	Bullet bullet;
 
 	float scale = 1;
+	int timer = 0;
 	
 	private ArrayList<GameObject> entities;
 
@@ -42,20 +43,20 @@ public class Main extends BasicGame {
 		
 		Input input = gc.getInput();
 
-		if (input.isKeyDown(Input.KEY_A)) // Very poorly optimised TODO
+		if (input.isKeyDown(Input.KEY_A))
 		{
-			plane.moveLeft(1, 1);
+			plane.moveLeft(5, 5); //Input velocities
 		}
 
 		if (input.isKeyDown(Input.KEY_D)) {
-		plane.moveRight(1, 1);
+		plane.moveRight(5, 5); //Input velocities
 		}
 
 		if (input.isKeyDown(Input.KEY_W)) {
-		plane.moveUp(1,1);
+		plane.moveUp(5,5); //Input velocities
 		}
 		if (input.isKeyDown(Input.KEY_S)) {
-		plane.moveDown(1,1);
+		plane.moveDown(5,5); //Input velocities
 		}
 		if (input.isKeyDown(Input.KEY_2)) {
 			scale += (scale >= 5.0f) ? 0 : 0.1f;
@@ -69,9 +70,14 @@ public class Main extends BasicGame {
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
 			// TODO make it shoot bullets
+			timer++;
+			if(timer > 10){
+				timer = 0;
+			}else if(timer == 1){
 			bullet = new Bullet(plane.getX(), plane.getY());
 			entities.add(bullet);
 			shot.play();
+			}
 		}
 
 	}
