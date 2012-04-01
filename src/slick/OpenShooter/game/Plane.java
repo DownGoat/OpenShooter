@@ -3,9 +3,10 @@ package slick.OpenShooter.game;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Plane extends SuperObject  {
-	
+public class Plane extends SuperObject {
+
 	Image sprite = null;
+	float acc = 0; // Acceleration
 
 	public Plane(float x, float y) {
 		try {
@@ -19,44 +20,50 @@ public class Plane extends SuperObject  {
 	}
 
 	public void moveLeft(float velx, float vely) {
-		if (x > 0) {
-			if (velx < 0.5) {
-				velx += 0.005; // Velocity acceleration
+		if (x > 0) { // find edge
+			if (acc < 3) { // max acceleration
+				acc += 0.3; // Velocity acceleration
 			}
-			x -= 0.05 + velx; // initial velocity plus acceleration
+			x -= velx + acc; // initial velocity plus acceleration
 		}
 		this.updatePosition(x, y);
 	}
 
 	public void moveRight(float velx, float vely) {
-		if (x < 655) {
-			if (velx < 0.5) {
-				velx += 0.005; // Velocity acceleration
+		if (x < 655) { // find edge
+			if (acc < 3) { // max acceleration
+				acc += 0.3; // Velocity acceleration
 			}
-			x += 0.05 + velx; // initial velocity plus acceleration
+			x += velx + acc; // initial velocity plus acceleration
 		}
 		this.updatePosition(x, y);
 	}
 
 	public void moveUp(float velx, float vely) {
 		if (y > 50) {
-			y-=1+vely;
+			y -= 1 + vely;
 		}
 		this.updatePosition(x, y);
 	}
 
 	public void moveDown(float velx, float vely) {
 		if (y < 450) {
-			y+=1+vely;
+			y += 1 + vely;
 		}
 		this.updatePosition(x, y);
 	}
 	
-	public float getX(){
+	public void decreaseAcc(){ //NOT USED
+		if (acc != 0){
+		acc -= 0.3;
+		}
+	}
+
+	public float getX() {
 		return x;
 	}
-	
-	public float getY(){
+
+	public float getY() {
 		return y;
 	}
 

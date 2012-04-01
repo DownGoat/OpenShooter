@@ -61,18 +61,18 @@ public class GamePlayState extends BasicGameState {
 
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))
 		{
-			plane.moveLeft(5, 5); //Input velocities
+			plane.moveLeft(2, 2); //Initial velocities
 		}
 
 		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)){
-		plane.moveRight(5, 5); //Input velocities
+		plane.moveRight(2, 2); //Initial velocities
 		}
 
 		if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
-		plane.moveUp(5,5); //Input velocities
+		plane.moveUp(5,5); //Initial velocities
 		}
 		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
-		plane.moveDown(5,5); //Input velocities
+		plane.moveDown(5,5); //Initial velocities
 		}
 		if (input.isKeyDown(Input.KEY_2)) {
 			scale += (scale >= 5.0f) ? 0 : 0.1f;

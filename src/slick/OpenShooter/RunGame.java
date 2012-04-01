@@ -13,7 +13,7 @@ public class RunGame {
 	public static void main(String[] args) {
 		AppGameContainer app;
 		try {
-			app = new AppGameContainer(new OpenShooterGame("OpenShooter"));
+			app = new AppGameContainer(new OpenShooterGame("OpenShooter - Now with 47% more bullets!aaa"));
 			app.setDisplayMode(800, 600, false);
 			app.start();
 		} catch (SlickException e) {
