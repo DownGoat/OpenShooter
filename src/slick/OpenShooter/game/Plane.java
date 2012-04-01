@@ -1,5 +1,6 @@
 package slick.OpenShooter.game;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -19,35 +20,35 @@ public class Plane extends SuperObject {
 		this.updatePosition(x, y);
 	}
 
-	public void moveLeft(float velx, float vely) {
-		if (x > 0) { // find edge
-			if (acc < 3) { // max acceleration
-				acc += 0.3; // Velocity acceleration
+	public void moveLeft(float velx, float vely, GameContainer gc) {
+		if (x >= 0) {
+			if (velx < 0.5) {
+				velx += 0.005; // Velocity acceleration
 			}
-			x -= velx + acc; // initial velocity plus acceleration
+			x -= 0.05 + velx; // initial velocity plus acceleration
 		}
 		this.updatePosition(x, y);
 	}
 
-	public void moveRight(float velx, float vely) {
-		if (x < 655) { // find edge
-			if (acc < 3) { // max acceleration
-				acc += 0.3; // Velocity acceleration
+	public void moveRight(float velx, float vely, GameContainer gc) {
+		if (x <= (gc.getWidth()-sprite.getWidth())) {
+			if (velx < 0.5) {
+				velx += 0.005; // Velocity acceleration
 			}
-			x += velx + acc; // initial velocity plus acceleration
+			x += 0.05 + velx; // initial velocity plus acceleration
 		}
 		this.updatePosition(x, y);
 	}
 
-	public void moveUp(float velx, float vely) {
-		if (y > 50) {
+	public void moveUp(float velx, float vely, GameContainer gc) {
+		if (y >= 0) {
 			y -= 1 + vely;
 		}
 		this.updatePosition(x, y);
 	}
 
-	public void moveDown(float velx, float vely) {
-		if (y < 450) {
+	public void moveDown(float velx, float vely, GameContainer gc) {
+		if(y <= (gc.getHeight()-sprite.getWidth())) {
 			y += 1 + vely;
 		}
 		this.updatePosition(x, y);

@@ -2,6 +2,7 @@ package slick.OpenShooter.states;
 
 import java.util.ArrayList;
 
+import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -21,6 +22,7 @@ public class GamePlayState extends BasicGameState {
 	private Plane plane;
 	private Bullet bullet1;
 	private Bullet bullet2;
+	private long lastBulletTime;
 
 	float scale = 1;
 	int timer = 0;
@@ -42,6 +44,8 @@ public class GamePlayState extends BasicGameState {
 
 		shot = new Sound("src/sounds/shot.wav");
 		land = new Image("src/sprites/land.jpg");
+
+		lastBulletTime = getTime();
 	}
 
 	@Override
@@ -49,7 +53,7 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		land.draw(0, 0);
 
-		for(GameObject go: entities) {
+		for (GameObject go : entities) {
 			go.draw();
 		}
 	}
@@ -59,43 +63,30 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 
-		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))
-		{
-			plane.moveLeft(2, 2); //Initial velocities
+		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
+			plane.moveLeft(2, 2, gc); // Initial velocities
 		}
 
-		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)){
-		plane.moveRight(2, 2); //Initial velocities
+		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
+			plane.moveRight(2, 2, gc); // Initial velocities
 		}
 
 		if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
-		plane.moveUp(5,5); //Initial velocities
+			plane.moveUp(5, 5, gc); // Initial velocities
 		}
 		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
-		plane.moveDown(5,5); //Initial velocities
-		}
-		if (input.isKeyDown(Input.KEY_2)) {
-			scale += (scale >= 5.0f) ? 0 : 0.1f;
-		//	plane.setCenterOfRotation(plane.getWidth() / 2.0f * scale,
-	//				plane.getHeight() / 2.0f * scale);
-		}
-		if (input.isKeyDown(Input.KEY_1)) {
-			scale -= (scale <= 1.0f) ? 0 : 0.1f;
-	//		plane.setCenterOfRotation(plane.getWidth() / 2.0f * scale,
-	//				plane.getHeight() / 2.0f * scale);
+			plane.moveDown(5, 5, gc); // Initial velocities
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
-			// TODO make it shoot bullets
-			timer++;
-			if(timer > 10){
-				timer = 0;
-			}else if(timer == 1){
-			bullet1 = new Bullet(plane.getX(), plane.getY()+35);
-			entities.add(bullet1);
-			bullet2 = new Bullet(plane.getX()+81, plane.getY()+35);
-			entities.add(bullet2);
-			shot.play();
+			if ((getTime() - lastBulletTime) >= 300) {
+				lastBulletTime = getTime();
+				bullet1 = new Bullet(plane.getX(), plane.getY() + 35);
+				entities.add(bullet1);
+				bullet2 = new Bullet(plane.getX() + 81, plane.getY() + 35);
+				entities.add(bullet2);
+				shot.play();
 			}
+
 		}
 
 	}
@@ -104,6 +95,15 @@ public class GamePlayState extends BasicGameState {
 	public int getID() {
 		// TODO Auto-generated method stub
 		return stateID;
+	}
+
+	/**
+	 * Get the time in milliseconds
+	 * 
+	 * @return The system time in milliseconds
+	 */
+	public long getTime() {
+		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 
 }
