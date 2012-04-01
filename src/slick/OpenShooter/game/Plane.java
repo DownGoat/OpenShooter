@@ -10,7 +10,7 @@ public class Plane extends SuperObject {
 
 	public Plane(float x, float y) {
 		try {
-			sprite = new Image("src/sprites/b52.png");
+			sprite = new Image("src/sprites/f35.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
