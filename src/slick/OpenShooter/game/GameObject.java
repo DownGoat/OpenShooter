@@ -1,4 +1,4 @@
-package data;
+package slick.OpenShooter.game;
 
 public interface GameObject {
 

@@ -1,4 +1,4 @@
-package data;
+package slick.OpenShooter.game;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import slick.OpenShooter.game.*;
 
 public class MainMenuState extends BasicGameState {
 	/**
@@ -75,6 +76,7 @@ public class MainMenuState extends BasicGameState {
         }
         
         if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+        	sbg.enterState(OpenShooterGame.GAMEPLAYSTATE);
         }
 		
 	}

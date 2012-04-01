@@ -7,7 +7,7 @@ import slick.OpenShooter.states.*;
 
 public class OpenShooterGame extends StateBasedGame {
 	private static final int MAINMENUSTATE          = 0;
-    private static final int GAMEPLAYSTATE          = 1;
+    public static final int GAMEPLAYSTATE          = 1;
 
 	public OpenShooterGame(String name) {
 		super(name);
