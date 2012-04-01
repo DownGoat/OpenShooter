@@ -43,6 +43,7 @@ public class GamePlayState extends BasicGameState {
 
 	float scale = 1;
 	int timer = 0;
+	int RoF = 200; //Rate of Fire
 
 	/**
 	 * Collection holding all gameobjects.
@@ -119,10 +120,10 @@ public class GamePlayState extends BasicGameState {
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
 			/*
-			 * Checks if more than 300ms has passed since last shot fired.
+			 * Checks if more than number in RoF has passed since last shot fired.
 			 * If so lastBulletTime is updated, and a new shot is fired.
 			 */
-			if ((getTime() - lastBulletTime) >= 300) {
+			if ((getTime() - lastBulletTime) >= RoF) { //RoF = Rate of Fire
 				lastBulletTime = getTime();
 				bullet1 = new Bullet(plane.getX(), plane.getY() + 35);
 				entities.add(bullet1);
