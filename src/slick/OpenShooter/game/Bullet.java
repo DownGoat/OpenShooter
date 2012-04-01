@@ -3,6 +3,11 @@ package slick.OpenShooter.game;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * Bullet is the simple representation of a bullet that the plane shoots.
+ * @author Sindre Smistad, Fredrik Saevland.
+ *
+ */
 public class Bullet extends SuperObject {
 	
 	Image sprite = null;
@@ -19,8 +24,8 @@ public class Bullet extends SuperObject {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		this.updatePosition(x, y);
 	}
+	
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
