@@ -63,22 +63,28 @@ public class MainMenuState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 		
+		/*
+		 * Get mous position.
+		 */
 		int mouseX = input.getMouseX();
         int mouseY = input.getMouseY();
         
+        /*
+         * If the mouse is hoovering over the NewGame image, increase the scale of the image to
+         * get a effect that you are selecting it.
+         */
         if((mouseX <= newGameX+newGameImage.getWidth() && mouseX >= newGameX) && 
         		(mouseY <= newGameY+newGameImage.getHeight() && mouseY >= newGameY)) {
         	hooverScale = 1.05f;
+        	
+        	if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+            	sbg.enterState(OpenShooterGame.GAMEPLAYSTATE);
+            }
         }
         
         else {
         	hooverScale = 1.0f;
         }
-        
-        if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-        	sbg.enterState(OpenShooterGame.GAMEPLAYSTATE);
-        }
-		
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package slick.OpenShooter.states;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
@@ -17,16 +18,35 @@ import slick.OpenShooter.game.*;
 public class GamePlayState extends BasicGameState {
 	private int stateID = -1;
 
+	/**
+	 * The background image.
+	 */
 	private Image land = null;
+	
+	/**
+	 * Sound played when shooting a bullet.
+	 */
 	private Sound shot = null;
+	
+	/**
+	 * The players plane.
+	 */
 	private Plane plane;
+	
 	private Bullet bullet1;
 	private Bullet bullet2;
+	
+	/**
+	 * Time since last bullet was fired, used to limit the rate of fire.
+	 */
 	private long lastBulletTime;
 
 	float scale = 1;
 	int timer = 0;
 
+	/**
+	 * Collection holding all gameobjects.
+	 */
 	private ArrayList<GameObject> entities;
 
 	public GamePlayState(int stateID) {
@@ -52,8 +72,25 @@ public class GamePlayState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		land.draw(0, 0);
-
-		for (GameObject go : entities) {
+		
+		/*
+		 * Iteriates over all the GameObjects and checks if some has to be removed.
+		 */
+		Iterator<GameObject> i = entities.iterator();
+		while (i.hasNext()) {
+			GameObject go = i.next();
+			
+			/*
+			 * Checks if the GameObject is inside the screen. 
+			 * If it is it is removed and we continue.
+			 */
+			if(go.getX() < 0 || go.getX() > gc.getWidth() ||
+					go.getY() < 0 || go.getY() > gc.getHeight()) {
+				
+				i.remove();
+				continue;
+			}
+			
 			go.draw();
 		}
 	}
@@ -63,6 +100,9 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 
+		/*
+		 * Input stuff
+		 */
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			plane.moveLeft(2, 2, gc); // Initial velocities
 		}
@@ -78,6 +118,10 @@ public class GamePlayState extends BasicGameState {
 			plane.moveDown(5, 5, gc); // Initial velocities
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
+			/*
+			 * Checks if more than 300ms has passed since last shot fired.
+			 * If so lastBulletTime is updated, and a new shot is fired.
+			 */
 			if ((getTime() - lastBulletTime) >= 300) {
 				lastBulletTime = getTime();
 				bullet1 = new Bullet(plane.getX(), plane.getY() + 35);

@@ -21,7 +21,7 @@ public class Plane extends SuperObject {
 	}
 
 	public void moveLeft(float velx, float vely, GameContainer gc) {
-		if (x >= 0) {
+		if ((x - (0.05 + velx)) > 0) {
 			if (velx < 0.5) {
 				velx += 0.005; // Velocity acceleration
 			}
@@ -31,7 +31,7 @@ public class Plane extends SuperObject {
 	}
 
 	public void moveRight(float velx, float vely, GameContainer gc) {
-		if (x <= (gc.getWidth()-sprite.getWidth())) {
+		if ((x +( 0.05 + velx)) <= (gc.getWidth()-sprite.getWidth())) {
 			if (velx < 0.5) {
 				velx += 0.005; // Velocity acceleration
 			}
@@ -41,14 +41,14 @@ public class Plane extends SuperObject {
 	}
 
 	public void moveUp(float velx, float vely, GameContainer gc) {
-		if (y >= 0) {
+		if ((y - (1 + vely)) > 0) {
 			y -= 1 + vely;
 		}
 		this.updatePosition(x, y);
 	}
 
 	public void moveDown(float velx, float vely, GameContainer gc) {
-		if(y <= (gc.getHeight()-sprite.getWidth())) {
+		if((y + (1 + vely)) <= (gc.getHeight()-sprite.getHeight())) {
 			y += 1 + vely;
 		}
 		this.updatePosition(x, y);
@@ -58,14 +58,6 @@ public class Plane extends SuperObject {
 		if (acc != 0){
 		acc -= 0.3;
 		}
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
 	}
 
 	@Override
