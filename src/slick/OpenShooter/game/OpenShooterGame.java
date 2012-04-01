@@ -6,7 +6,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import slick.OpenShooter.states.*;
 
 public class OpenShooterGame extends StateBasedGame {
-	private static final int MAINMENUSTATE          = 0;
+	public static final int MAINMENUSTATE          = 0;
     public static final int GAMEPLAYSTATE          = 1;
     public static final int SETTINGSSTATE         = 2;
 

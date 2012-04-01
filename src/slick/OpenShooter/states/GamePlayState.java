@@ -98,7 +98,7 @@ public class GamePlayState extends BasicGameState {
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame arsbgg1, int delta)
+	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		Input input = gc.getInput();
 
@@ -133,7 +133,7 @@ public class GamePlayState extends BasicGameState {
 				shot.play();
 			}
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
-			//sbg.enterState(OpenShooterGame.MAINMENUSTATE);
+			sbg.enterState(OpenShooterGame.MAINMENUSTATE);
 		}
 
 		}
@@ -142,7 +142,6 @@ public class GamePlayState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return stateID;
 	}
 
