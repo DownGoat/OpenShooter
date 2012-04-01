@@ -44,6 +44,7 @@ public class GamePlayState extends BasicGameState {
 	float scale = 1;
 	int timer = 0;
 	int RoF = 200; //Rate of Fire
+	int speed = 5; //Movement speed
 
 	/**
 	 * Collection holding all gameobjects.
@@ -105,18 +106,18 @@ public class GamePlayState extends BasicGameState {
 		 * Input stuff
 		 */
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
-			plane.moveLeft(2, 2, gc); // Initial velocities
+			plane.moveLeft(speed, speed, gc); // Initial velocities
 		}
 
 		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
-			plane.moveRight(2, 2, gc); // Initial velocities
+			plane.moveRight(speed, speed, gc); // Initial velocities
 		}
 
 		if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
-			plane.moveUp(5, 5, gc); // Initial velocities
+			plane.moveUp(speed, speed, gc); // Initial velocities
 		}
 		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
-			plane.moveDown(5, 5, gc); // Initial velocities
+			plane.moveDown(speed, speed, gc); // Initial velocities
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
 			/*
@@ -131,6 +132,9 @@ public class GamePlayState extends BasicGameState {
 				entities.add(bullet2);
 				shot.play();
 			}
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			//sbg.enterState(OpenShooterGame.MAINMENUSTATE);
+		}
 
 		}
 

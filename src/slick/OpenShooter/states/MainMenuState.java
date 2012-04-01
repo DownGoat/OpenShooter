@@ -21,9 +21,14 @@ public class MainMenuState extends BasicGameState {
 	private Image newGameImage;
 	
 	/**
-	 * New Game Image X offset.
+	 * Settings imags, shows the text "Settings"
 	 */
-	private final int newGameX = 50;
+	private Image settingsImage;
+	
+	/**
+	 * Images in left line X offset.
+	 */
+	private final int LeftLineX = 50;
 	
 	/**
 	 * New Game Image Y offset.
@@ -31,9 +36,19 @@ public class MainMenuState extends BasicGameState {
 	private final int newGameY = 150;
 	
 	/**
-	 * Increased if mouse is hoovering over New Game Image.
+	 * New Game Image Y offset.
 	 */
-	private float hooverScale = 1.0f;
+	private final int settingsY = 250;
+	
+	/**
+	 * Increased if mouse is hovering over New Game Image.
+	 */
+	private float hooverScaleNewGame = 1.0f;
+	
+	/**
+	 * Increased if mouse is hovering over Settings Image.
+	 */
+	private float hooverScaleSettings = 1.0f;
 	
 	private int stateID = -1;
 	 
@@ -49,13 +64,15 @@ public class MainMenuState extends BasicGameState {
 		
 		background = new Image("data/MenuBackGround.png");
 		newGameImage = new Image("data/NewGame.png");
+		settingsImage = new Image("data/Settings.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		background.draw(0, 0);
-		newGameImage.draw(newGameX, newGameY, hooverScale);
+		newGameImage.draw(LeftLineX, newGameY, hooverScaleNewGame);
+		settingsImage.draw(LeftLineX, settingsY, hooverScaleSettings);
 	}
 
 	@Override
@@ -64,7 +81,7 @@ public class MainMenuState extends BasicGameState {
 		Input input = gc.getInput();
 		
 		/*
-		 * Get mous position.
+		 * Get mouse position.
 		 */
 		int mouseX = input.getMouseX();
         int mouseY = input.getMouseY();
@@ -73,17 +90,26 @@ public class MainMenuState extends BasicGameState {
          * If the mouse is hoovering over the NewGame image, increase the scale of the image to
          * get a effect that you are selecting it.
          */
-        if((mouseX <= newGameX+newGameImage.getWidth() && mouseX >= newGameX) && 
+        if((mouseX <= LeftLineX+newGameImage.getWidth() && mouseX >= LeftLineX) && 
         		(mouseY <= newGameY+newGameImage.getHeight() && mouseY >= newGameY)) {
-        	hooverScale = 1.05f;
+        	hooverScaleNewGame = 1.05f;
         	
         	if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             	sbg.enterState(OpenShooterGame.GAMEPLAYSTATE);
             }
         }
+        else if((mouseX <= LeftLineX+settingsImage.getWidth() && mouseX >= LeftLineX) && 
+        		(mouseY <= settingsY+settingsImage.getHeight() && mouseY >= settingsY)) {
+        	hooverScaleSettings = 1.05f;
+        	
+        	if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+            	sbg.enterState(OpenShooterGame.SETTINGSSTATE);
+            }
+        }
         
         else {
-        	hooverScale = 1.0f;
+        	hooverScaleNewGame = 1.0f;
+        	hooverScaleSettings = 1.0f;
         }
 	}
 
