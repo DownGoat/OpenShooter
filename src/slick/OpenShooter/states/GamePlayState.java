@@ -92,7 +92,7 @@ public class GamePlayState extends BasicGameState {
 			}else if(timer == 1){
 			bullet1 = new Bullet(plane.getX(), plane.getY()+35);
 			entities.add(bullet1);
-			bullet2 = new Bullet(plane.getX()+135, plane.getY()+35);
+			bullet2 = new Bullet(plane.getX()+81, plane.getY()+35);
 			entities.add(bullet2);
 			shot.play();
 			}
