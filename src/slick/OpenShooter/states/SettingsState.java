@@ -6,7 +6,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import slick.OpenShooter.game.*;
 
 
 public class SettingsState extends BasicGameState {
@@ -33,7 +32,7 @@ public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 }
 
 @Override
-public void render(GameContainer gc, StateBasedGame sbg, Graphics arg2)
+public void render(GameContainer gc, StateBasedGame arg1, Graphics arg2)
 		throws SlickException {
 	background.draw(0, 0);
 	

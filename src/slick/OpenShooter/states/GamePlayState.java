@@ -132,10 +132,10 @@ public class GamePlayState extends BasicGameState {
 				entities.add(bullet2);
 				shot.play();
 			}
-		if (input.isKeyDown(Input.KEY_ESCAPE)) {
-			sbg.enterState(OpenShooterGame.MAINMENUSTATE);
-		}
 
+		}
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			sbg.enterState(OpenShooterGame.PAUSESTATE);
 		}
 
 	}

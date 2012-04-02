@@ -9,6 +9,7 @@ public class OpenShooterGame extends StateBasedGame {
 	public static final int MAINMENUSTATE          = 0;
     public static final int GAMEPLAYSTATE          = 1;
     public static final int SETTINGSSTATE         = 2;
+    public static final int PAUSESTATE           = 3;
 
 	public OpenShooterGame(String name) {
 		super(name);
@@ -16,6 +17,7 @@ public class OpenShooterGame extends StateBasedGame {
 		this.addState(new MainMenuState(MAINMENUSTATE));
 		this.addState(new GamePlayState(GAMEPLAYSTATE));
 		this.addState(new SettingsState(SETTINGSSTATE));
+		this.addState(new PauseState(PAUSESTATE));
 		this.enterState(MAINMENUSTATE);
 	}
 
@@ -24,6 +26,7 @@ public class OpenShooterGame extends StateBasedGame {
 		this.getState(MAINMENUSTATE).init(gc, this);
         this.getState(GAMEPLAYSTATE).init(gc, this);
         this.getState(SETTINGSSTATE).init(gc, this);
+        this.getState(PAUSESTATE).init(gc, this);
 	}
 	
 	
