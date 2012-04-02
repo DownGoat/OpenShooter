@@ -22,20 +22,20 @@ public class GamePlayState extends BasicGameState {
 	 * The background image.
 	 */
 	private Image land = null;
-	
+
 	/**
 	 * Sound played when shooting a bullet.
 	 */
 	private Sound shot = null;
-	
+
 	/**
 	 * The players plane.
 	 */
 	private Plane plane;
-	
+
 	private Bullet bullet1;
 	private Bullet bullet2;
-	
+
 	/**
 	 * Time since last bullet was fired, used to limit the rate of fire.
 	 */
@@ -43,8 +43,8 @@ public class GamePlayState extends BasicGameState {
 
 	float scale = 1;
 	int timer = 0;
-	int RoF = 200; //Rate of Fire
-	int speed = 5; //Movement speed
+	int RoF = 200; // Rate of Fire
+	int speed = 5; // Movement speed
 
 	/**
 	 * Collection holding all gameobjects.
@@ -74,25 +74,26 @@ public class GamePlayState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		land.draw(0, 0);
-		
+
 		/*
-		 * Iteriates over all the GameObjects and checks if some has to be removed.
+		 * Iteriates over all the GameObjects and checks if some has to be
+		 * removed.
 		 */
 		Iterator<GameObject> i = entities.iterator();
 		while (i.hasNext()) {
 			GameObject go = i.next();
-			
+
 			/*
-			 * Checks if the GameObject is inside the screen. 
-			 * If it is it is removed and we continue.
+			 * Checks if the GameObject is inside the screen. If it is it is
+			 * removed and we continue.
 			 */
-			if(go.getX() < 0 || go.getX() > gc.getWidth() ||
-					go.getY() < 0 || go.getY() > gc.getHeight()) {
-				
+			if (go.getX() < 0 || go.getX() > gc.getWidth() || go.getY() < 0
+					|| go.getY() > gc.getHeight()) {
+
 				i.remove();
 				continue;
 			}
-			
+
 			go.draw();
 		}
 	}
@@ -121,10 +122,10 @@ public class GamePlayState extends BasicGameState {
 		}
 		if (input.isKeyDown(Input.KEY_SPACE)) {
 			/*
-			 * Checks if more than number in RoF has passed since last shot fired.
-			 * If so lastBulletTime is updated, and a new shot is fired.
+			 * Checks if more than number in RoF has passed since last shot
+			 * fired. If so lastBulletTime is updated, and a new shot is fired.
 			 */
-			if ((getTime() - lastBulletTime) >= RoF) { //RoF = Rate of Fire
+			if ((getTime() - lastBulletTime) >= RoF) { // RoF = Rate of Fire
 				lastBulletTime = getTime();
 				bullet1 = new Bullet(plane.getX(), plane.getY() + 35);
 				entities.add(bullet1);

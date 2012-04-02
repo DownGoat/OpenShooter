@@ -30,4 +30,5 @@ http://slick.cokeandcode.com/wiki/doku.php?id=01_-_a_basic_slick_game
 * Fully functional menus, where you can escape yourself back, and where you can set difficulties,
   system-settings and shit.
 * Implement background-music, which is open and released under a non-commercial licence.
+* Make the ability to 'throw' bullets, and randomise the bullet-Xvelocity a bit
 * MAKE A PUBLIC RELEASE, AND LIVE UP TO THE NAME 'OPEN'
