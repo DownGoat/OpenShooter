@@ -40,7 +40,7 @@ public class PauseState extends BasicGameState {
 	/**
 	 * Main menu Image Y offset.
 	 */
-	private final int mainMenuY = 250;
+	private final int mainMenuY = 450;
 	
 	/**
 	 * Increased if mouse is hovering over Continue Image.

@@ -1,12 +1,33 @@
 This will be a shoot 'em up spacescroller like Touhou. It is programmed in Java using lwjgl.
 
-//TODO
+//TODO README
 How to run the program
+About
+Legals (GPLv3-licence?)
 Sources
-
-//TODO in game
-Make the plane shoot bullets
-Split the game up in classes properly
+Changelog
+Class-desciption
 
 //TUTORIALS USED
 http://slick.cokeandcode.com/wiki/doku.php?id=01_-_a_basic_slick_game
+
+//KNOWN BUGS
+* Audio library makes the game appear to be crashed in Windows
+* Acceleration is not implemented properly, so the plane feels static and boring
+* When clicking on the menu, you perform one click per frame, so you click 60 times per second, 
+  which can lead to clicking through a whole menu if the different menus have buttons on the same place.
+  
+//TODO GAME
+* Content, content and content
+* The game is boring, and need more animations and sprites, plus fresher menus.
+* Adjustment to sound-effects, it's loud and boring right now.
+* Settings-menu where you can change resolution (This also mean that we need higher resolution background
+  and sprite-scaling).
+* More Touhou-ish shooting, not boring and small bullets, but a spray of colourful lasers.
+* Animations to plane, tilting and jet-flames.
+* Enemies, at least some basic enemies.
+* Proper stages/levels and scrolling backgrounds with grid-system.
+* Fully functional menus, where you can escape yourself back, and where you can set difficulties,
+  system-settings and shit.
+* Implement background-music, which is open and released under a non-commercial licence.
+* MAKE A PUBLIC RELEASE, AND LIVE UP TO THE NAME 'OPEN'
