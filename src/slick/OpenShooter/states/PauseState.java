@@ -18,9 +18,14 @@ public class PauseState extends BasicGameState {
 	private Image background;
 	
 	/**
-	 * New Game image, shows the text "New Game"
+	 * Continue image, shows the text "New Game"
 	 */
 	private Image continueImage;
+	
+	/**
+	 * Main Menu image, shows the text "New Game"
+	 */
+	private Image mainMenuImage;
 	
 	/**
 	 * Images in left line X offset.
@@ -28,14 +33,24 @@ public class PauseState extends BasicGameState {
 	private final int LeftLineX = 50;
 	
 	/**
-	 * New Game Image Y offset.
+	 * Continue Image Y offset.
 	 */
 	private final int continueY = 150;
 	
 	/**
-	 * Increased if mouse is hovering over New Game Image.
+	 * Main menu Image Y offset.
+	 */
+	private final int mainMenuY = 250;
+	
+	/**
+	 * Increased if mouse is hovering over Continue Image.
 	 */
 	private float hooverScaleContinue = 1.0f;
+	
+	/**
+	 * Increased if mouse is hovering over Main Menu Image.
+	 */
+	private float hooverScaleMainMenu = 1.0f;
 	
 	private int stateID = -1;
 	
@@ -51,6 +66,7 @@ public class PauseState extends BasicGameState {
 		
 		background = new Image("data/MenuBackGround.png");
 		continueImage = new Image("data/Continue.png");
+		mainMenuImage = new Image("data/MainMenu.png");
 		
 	}
 
@@ -59,6 +75,7 @@ public class PauseState extends BasicGameState {
 			throws SlickException {
 		background.draw(0, 0);
 		continueImage.draw(LeftLineX, continueY, hooverScaleContinue);
+		mainMenuImage.draw(LeftLineX, mainMenuY, hooverScaleMainMenu);
 		
 	}
 
@@ -86,9 +103,18 @@ public class PauseState extends BasicGameState {
             	sbg.enterState(OpenShooterGame.GAMEPLAYSTATE);
             }
         }
+        if((mouseX <= LeftLineX+mainMenuImage.getWidth() && mouseX >= LeftLineX) && 
+        		(mouseY <= mainMenuY+mainMenuImage.getHeight() && mouseY >= mainMenuY)) {
+        	hooverScaleMainMenu = 1.05f;
+        	
+        	if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+            	sbg.enterState(OpenShooterGame.MAINMENUSTATE);
+            }
+        }
         
         else {
         	hooverScaleContinue = 1.0f;
+        	hooverScaleMainMenu = 1.0f;
         }
 	}
 
