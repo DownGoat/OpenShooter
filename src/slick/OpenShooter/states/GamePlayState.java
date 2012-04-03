@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.lwjgl.Sys;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -33,8 +34,7 @@ public class GamePlayState extends BasicGameState {
 	 */
 	private Plane plane;
 
-	private Bullet bullet1;
-	private Bullet bullet2;
+	private Bullet bullet1, bullet2;
 
 	/**
 	 * Time since last bullet was fired, used to limit the rate of fire.
@@ -50,6 +50,8 @@ public class GamePlayState extends BasicGameState {
 	 * Collection holding all gameobjects.
 	 */
 	private ArrayList<GameObject> entities;
+	
+	private long score;
 
 	public GamePlayState(int stateID) {
 		this.stateID = stateID;
@@ -68,6 +70,7 @@ public class GamePlayState extends BasicGameState {
 		land = new Image("src/sprites/land.jpg");
 
 		lastBulletTime = getTime();
+		score = 0;
 	}
 
 	@Override
@@ -95,6 +98,8 @@ public class GamePlayState extends BasicGameState {
 			}
 
 			go.draw();
+			g.setColor(Color.black);
+			g.drawString("Score: "+score, 50, OpenShooterGame.frameHeight-50);
 		}
 	}
 
@@ -106,6 +111,9 @@ public class GamePlayState extends BasicGameState {
 		/*
 		 * Input stuff
 		 */
+		
+		/* Set flame of plane to normal before input, so it is normal if no input is recived */
+		plane.setFlameNormal();
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			plane.moveLeft(speed, speed, gc, delta); // Initial velocities
 		}

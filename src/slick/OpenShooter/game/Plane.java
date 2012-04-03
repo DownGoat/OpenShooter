@@ -1,8 +1,11 @@
 package slick.OpenShooter.game;
 
+import org.lwjgl.Sys;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  * Plane that the player controls.
@@ -16,17 +19,28 @@ public class Plane extends SuperObject {
 
 	Image sprite = null;
 	float acc = 0; // Acceleration
-	private float velocity = 0.35f;
-
+	private static final float velocity = 0.35f;
+	
+	/* Engine flame animation */
+	private SpriteSheet sheet;
+	
+	private Image flameNormal, flameBig, currentFlame;
+	
 	public Plane(float x, float y) {
 		try {
 			sprite = new Image("src/sprites/f35.png");
+			sheet = new SpriteSheet("src/sprites/plane_stick_flame.png", 9, 15);
+			flameBig = sheet.getSprite(0, 0);
+			flameNormal = sheet.getSprite(1, 0);
+			
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(0);
 		}
 		this.updatePosition(x, y);
+		
+		currentFlame = flameNormal;
 	}
 
 	/**
@@ -46,6 +60,7 @@ public class Plane extends SuperObject {
 			x -= velocity*delta; // initial velocity plus acceleration
 		}
 		this.updatePosition(x, y);
+		
 	}
 
 	/**
@@ -65,6 +80,7 @@ public class Plane extends SuperObject {
 			x += velocity*delta; // initial velocity plus acceleration
 		}
 		this.updatePosition(x, y);
+		
 	}
 
 	/**
@@ -77,10 +93,13 @@ public class Plane extends SuperObject {
 		/*
 		 * Moves the player if it does not result in player going of screen.
 		 */
+		
 		if ((y - (velocity*delta)) > 0) {
 			y -= velocity*delta;
 		}
 		this.updatePosition(x, y);
+		
+		currentFlame = flameBig;
 	}
 
 	/**
@@ -97,7 +116,9 @@ public class Plane extends SuperObject {
 			y += velocity*delta;
 		}
 		this.updatePosition(x, y);
+		
 	}
+	
 	
 	// TODO ?
 	public void decreaseAcc(){ //NOT USED
@@ -109,6 +130,23 @@ public class Plane extends SuperObject {
 	@Override
 	public void draw() {
 		sprite.draw(x, y);
+		currentFlame.draw(x+39, y+110);
+	}
+	
+	/**
+	 * Get the time in milliseconds
+	 * 
+	 * @return The system time in milliseconds
+	 */
+	public long getTime() {
+		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+	
+	/**
+	 * Sets the currentFlame to flameNormal.
+	 */
+	public void setFlameNormal() {
+		currentFlame = flameNormal;
 	}
 
 }

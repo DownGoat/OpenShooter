@@ -10,14 +10,21 @@ public class OpenShooterGame extends StateBasedGame {
     public static final int GAMEPLAYSTATE          = 1;
     public static final int SETTINGSSTATE         = 2;
     public static final int PAUSESTATE           = 3;
+    
+    public static int frameWidth;
+	public static int frameHeight;
 
-	public OpenShooterGame(String name) {
+	public OpenShooterGame(String name, int frameWidth, int frameHeight) {
 		super(name);
 		
 		this.addState(new MainMenuState(MAINMENUSTATE));
 		this.addState(new GamePlayState(GAMEPLAYSTATE));
 		this.addState(new SettingsState(SETTINGSSTATE));
 		this.addState(new PauseState(PAUSESTATE));
+		
+		OpenShooterGame.frameHeight = frameHeight;
+		OpenShooterGame.frameWidth = frameWidth;
+		
 		this.enterState(MAINMENUSTATE);
 	}
 
