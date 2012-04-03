@@ -1,4 +1,6 @@
-This will be a shoot 'em up spacescroller like Touhou. It is programmed in Java using lwjgl.
+<h1>OpenShooter - Now with 47% more bullets!</h1>
+
+Start the game by running /slick.OpenShooter/RunGame.java
 
 //TODO README
 How to run the program
