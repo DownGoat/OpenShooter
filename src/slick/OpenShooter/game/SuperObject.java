@@ -1,5 +1,8 @@
 package slick.OpenShooter.game;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
+
 /**
  * Abstract super class for the GameObject interface, implements some of the methods.
  * @author Sindre Smistad, Fredrik Saevland.
@@ -13,6 +16,10 @@ public abstract class SuperObject implements GameObject {
 	// TODO Add javadoc for this stuff.
 	protected float velx;
 	protected float vely;
+	
+	protected Rectangle rect;
+	
+	protected Image sprite;
 	
 	
 	/**

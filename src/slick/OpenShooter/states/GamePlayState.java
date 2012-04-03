@@ -40,7 +40,7 @@ public class GamePlayState extends BasicGameState {
 	 * Time since last bullet was fired, used to limit the rate of fire.
 	 */
 	private long lastBulletTime;
-	
+
 	private long lastEnemyAdded;
 
 	float scale = 1;
@@ -52,9 +52,11 @@ public class GamePlayState extends BasicGameState {
 	 * Collection holding all gameobjects.
 	 */
 	private ArrayList<GameObject> entities;
-	
+
 	private ArrayList<Enemy> enemies;
-	
+
+	private ArrayList<Bullet> bullets;
+
 	private long score;
 
 	public GamePlayState(int stateID) {
@@ -68,7 +70,8 @@ public class GamePlayState extends BasicGameState {
 
 		entities = new ArrayList<GameObject>();
 		enemies = new ArrayList<Enemy>();
-		
+		bullets = new ArrayList<Bullet>();
+
 		plane = new Plane(300, 400);
 		entities.add(plane);
 
@@ -84,64 +87,107 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		land.draw(0, 0);
 
+		g.setColor(Color.black);
+		g.drawString("Score: " + score, 50, OpenShooterGame.frameHeight - 50);
+
+		g.drawString("Health: " + plane.getHealth() + "%",
+				OpenShooterGame.frameWidth / 2,
+				OpenShooterGame.frameHeight - 50);
+
 		/*
 		 * Iteriates over all the GameObjects and checks if some has to be
 		 * removed.
 		 */
-		Iterator<GameObject> i = entities.iterator();
-		
-		g.setColor(Color.black);
-		g.drawString("Score: "+score, 50, OpenShooterGame.frameHeight-50);
-		
-		g.drawString("Health: "+plane.getHealth()+"%", OpenShooterGame.frameWidth/2, OpenShooterGame.frameHeight-50);
-		
-			
+		Iterator<Enemy> i = enemies.iterator();
 		while (i.hasNext()) {
-			GameObject go = i.next();
+			Enemy em = i.next();
 
 			/*
 			 * Checks if the GameObject is inside the screen. If it is it is
 			 * removed and we continue.
 			 */
-			if (go.getX() < 0 || go.getX() > gc.getWidth() || go.getY() < 0
-					|| go.getY() > gc.getHeight()) {
+			if (em.getX() < 0 || em.getX() > gc.getWidth() || em.getY() < 0
+					|| em.getY() > gc.getHeight()) {
 
-				System.out.println("Removed: "+go);
-				System.out.printf("X:%.2f; Y:%.2f\n", go.getX(), go.getY());
 				i.remove();
 				continue;
 			}
 
-			go.draw();
+			em.draw();
 		}
-		
-		
+
+		Iterator<Bullet> ib = bullets.iterator();
+		while (ib.hasNext()) {
+			Bullet bullet = ib.next();
+
+			/*
+			 * Checks if the GameObject is inside the screen. If it is it is
+			 * removed and we continue.
+			 */
+			if (bullet.getX() < 0 || bullet.getX() > gc.getWidth()
+					|| bullet.getY() < 0 || bullet.getY() > gc.getHeight()) {
+
+				ib.remove();
+				continue;
+			}
+
+			bullet.draw();
+		}
+
+		plane.draw();
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		
-		if((getTime()-lastEnemyAdded) >= 2000) {
+
+		if ((getTime() - lastEnemyAdded) >= 2000) {
 			Enemy em = new Enemy();
-			
+
 			entities.add(em);
 			enemies.add(em);
-			
+
 			lastEnemyAdded = getTime();
 		}
-		
-		for(Enemy em: enemies) {
+
+		for (Enemy em : enemies) {
 			em.move(delta);
-		}	
-		
+		}
+
+		Iterator<Enemy> i = enemies.iterator();
+		mainWhile: while (i.hasNext()) {
+			Enemy em = i.next();
+
+			if (em.intersects(plane)) {
+				plane.decrementHealth(10);
+				score += em.getScore() / 4;
+
+				i.remove();
+				continue;
+			}
+			
+			for(Bullet bullet: bullets) {
+				if(em.intersects(bullet)) {
+					em.decrementHealth(50);
+					if(em.getHealth() <= 0) {
+						score += em.getScore();
+						i.remove();
+						continue mainWhile;
+					}
+				}
+			}
+		}
+
 		Input input = gc.getInput();
 
 		/*
 		 * Input stuff
 		 */
-		
-		/* Set flame of plane to normal before input, so it is normal if no input is recived */
+
+		/*
+		 * Set flame of plane to normal before input, so it is normal if no
+		 * input is recived
+		 */
 		plane.setFlameNormal();
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			plane.moveLeft(speed, speed, gc, delta); // Initial velocities
@@ -165,9 +211,9 @@ public class GamePlayState extends BasicGameState {
 			if ((getTime() - lastBulletTime) >= RoF) { // RoF = Rate of Fire
 				lastBulletTime = getTime();
 				bullet1 = new Bullet(plane.getX(), plane.getY() + 35);
-				entities.add(bullet1);
+				bullets.add(bullet1);
 				bullet2 = new Bullet(plane.getX() + 81, plane.getY() + 35);
-				entities.add(bullet2);
+				bullets.add(bullet2);
 				shot.play();
 			}
 

@@ -2,6 +2,7 @@ package slick.OpenShooter.game;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 /**
  * Bullet is the simple representation of a bullet that the plane shoots.
@@ -33,4 +34,27 @@ public class Bullet extends SuperObject {
 		sprite.draw(x, y);
 	}
 
+	@Override
+	public int getWidth() {
+		return sprite.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return sprite.getHeight();
+	}
+	
+	public boolean intersects(GameObject go) {
+		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
+		
+		if(rect.intersects(go.getRect())){
+			return true;
+		}
+		
+		return false;
+	}
+
+	public Rectangle getRect() {
+		return new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
+	}
 }

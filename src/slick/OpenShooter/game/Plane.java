@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
 
 /**
  * Plane that the player controls.
@@ -45,6 +46,7 @@ public class Plane extends SuperObject {
 		currentFlame = flameNormal;
 		
 		health = 100;
+		
 	}
 
 	/**
@@ -154,8 +156,34 @@ public class Plane extends SuperObject {
 	}
 
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return health;
 	}
 
+	@Override
+	public int getWidth() {
+		return sprite.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return sprite.getHeight();
+	}
+
+	public void decrementHealth(int i) {
+		health -= i;
+	}
+	
+	public boolean intersects(GameObject go) {
+		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
+		
+		if(rect.intersects(go.getRect())){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public Rectangle getRect() {
+		return new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
+	}
 }
