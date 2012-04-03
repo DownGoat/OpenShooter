@@ -26,6 +26,8 @@ public class Plane extends SuperObject {
 	
 	private Image flameNormal, flameBig, currentFlame;
 	
+	private int health;
+	
 	public Plane(float x, float y) {
 		try {
 			sprite = new Image("src/sprites/f35.png");
@@ -41,6 +43,8 @@ public class Plane extends SuperObject {
 		this.updatePosition(x, y);
 		
 		currentFlame = flameNormal;
+		
+		health = 100;
 	}
 
 	/**
@@ -147,6 +151,11 @@ public class Plane extends SuperObject {
 	 */
 	public void setFlameNormal() {
 		currentFlame = flameNormal;
+	}
+
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return health;
 	}
 
 }

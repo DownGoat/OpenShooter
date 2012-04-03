@@ -40,6 +40,8 @@ public class GamePlayState extends BasicGameState {
 	 * Time since last bullet was fired, used to limit the rate of fire.
 	 */
 	private long lastBulletTime;
+	
+	private long lastEnemyAdded;
 
 	float scale = 1;
 	int timer = 0;
@@ -50,6 +52,8 @@ public class GamePlayState extends BasicGameState {
 	 * Collection holding all gameobjects.
 	 */
 	private ArrayList<GameObject> entities;
+	
+	private ArrayList<Enemy> enemies;
 	
 	private long score;
 
@@ -63,6 +67,8 @@ public class GamePlayState extends BasicGameState {
 		gc.setVSync(true);
 
 		entities = new ArrayList<GameObject>();
+		enemies = new ArrayList<Enemy>();
+		
 		plane = new Plane(300, 400);
 		entities.add(plane);
 
@@ -83,6 +89,13 @@ public class GamePlayState extends BasicGameState {
 		 * removed.
 		 */
 		Iterator<GameObject> i = entities.iterator();
+		
+		g.setColor(Color.black);
+		g.drawString("Score: "+score, 50, OpenShooterGame.frameHeight-50);
+		
+		g.drawString("Health: "+plane.getHealth()+"%", OpenShooterGame.frameWidth/2, OpenShooterGame.frameHeight-50);
+		
+			
 		while (i.hasNext()) {
 			GameObject go = i.next();
 
@@ -93,19 +106,35 @@ public class GamePlayState extends BasicGameState {
 			if (go.getX() < 0 || go.getX() > gc.getWidth() || go.getY() < 0
 					|| go.getY() > gc.getHeight()) {
 
+				System.out.println("Removed: "+go);
+				System.out.printf("X:%.2f; Y:%.2f\n", go.getX(), go.getY());
 				i.remove();
 				continue;
 			}
 
 			go.draw();
-			g.setColor(Color.black);
-			g.drawString("Score: "+score, 50, OpenShooterGame.frameHeight-50);
 		}
+		
+		
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
+		
+		if((getTime()-lastEnemyAdded) >= 2000) {
+			Enemy em = new Enemy();
+			
+			entities.add(em);
+			enemies.add(em);
+			
+			lastEnemyAdded = getTime();
+		}
+		
+		for(Enemy em: enemies) {
+			em.move(delta);
+		}	
+		
 		Input input = gc.getInput();
 
 		/*
