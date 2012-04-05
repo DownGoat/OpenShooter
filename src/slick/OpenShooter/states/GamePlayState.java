@@ -94,6 +94,8 @@ public class GamePlayState extends BasicGameState {
 		//map = new TiledMap("foobar.tmx"); //TODO Make map and point to it here.
 
 		lastBulletTime = getTime();
+		System.out.println(land.getHeight());
+		scrollY = -land.getHeight()+OpenShooterGame.frameHeight;
 		score = 0;
 	}
 
@@ -101,7 +103,7 @@ public class GamePlayState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		if ((getTime() - lastMapmoveTime) >= 2000) {
-			scrollY--;
+			scrollY++;
 		}
 		land.draw(0, scrollY);
 		//map.render(0, 0);
