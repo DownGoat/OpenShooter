@@ -242,6 +242,10 @@ public class GamePlayState extends BasicGameState {
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			sbg.enterState(OpenShooterGame.PAUSESTATE);
 		}
+		if (scrollY >= 0){
+			sbg.enterState(OpenShooterGame.PAUSESTATE);
+		}
+		System.out.println("Left of level: "+scrollY);
 
 	}
 
