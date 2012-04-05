@@ -5,7 +5,12 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
 import slick.OpenShooter.game.*;
-
+/**
+ * Alternative mainmethod
+ * 
+ * @author Sindre Smistad, Fredrik Saevland
+ *
+ */
 public class Driver {
 	
 	private static int frameWidth = 800;

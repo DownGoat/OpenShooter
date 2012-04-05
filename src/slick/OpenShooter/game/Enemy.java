@@ -6,7 +6,14 @@ import org.lwjgl.Sys;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-
+/**
+ * The A10 enemy
+ * Enemy extends the SuperObject abstract class which again is a subclass
+ * of the GameObject class. 
+ * 
+ * @author Sindre Smistad, Fredrik Saevland
+ *
+ */
 public class Enemy extends SuperObject {
 
 	private int health;

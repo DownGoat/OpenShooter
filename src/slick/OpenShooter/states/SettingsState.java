@@ -10,6 +10,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import slick.OpenShooter.game.OpenShooterGame;
 
+/**
+ * State for settings-menu
+ * 
+ * @author Sindre Smistad, Fredrik Saevland
+ *
+ */
 public class SettingsState extends BasicGameState {
 
 	/**

@@ -9,7 +9,12 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import slick.OpenShooter.game.OpenShooterGame;
-
+/**
+ * State for pausemenu (when hitting esc-key).
+ * 
+ * @author Sindre Smistad, Fredrik Saevland
+ *
+ */
 public class PauseState extends BasicGameState {
 
 	/**

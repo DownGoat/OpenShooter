@@ -13,8 +13,16 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
 
 import slick.OpenShooter.game.*;
+
+/**
+ * The state that contains the gameplay and the game container
+ * 
+ * @author Sindre Smistad, Fredrik Saevland
+ *
+ */
 
 public class GamePlayState extends BasicGameState {
 	private int stateID = -1;
@@ -23,6 +31,8 @@ public class GamePlayState extends BasicGameState {
 	 * The background image.
 	 */
 	private Image land = null;
+	
+	private TiledMap map = null;
 
 	/**
 	 * Sound played when shooting a bullet.
@@ -40,8 +50,12 @@ public class GamePlayState extends BasicGameState {
 	 * Time since last bullet was fired, used to limit the rate of fire.
 	 */
 	private long lastBulletTime;
+	
+	private long lastMapmoveTime;
 
 	private long lastEnemyAdded;
+	
+	private long scrollY;
 
 	float scale = 1;
 	int timer = 0;
@@ -72,11 +86,12 @@ public class GamePlayState extends BasicGameState {
 		enemies = new ArrayList<Enemy>();
 		bullets = new ArrayList<Bullet>();
 
-		plane = new Plane(300, 400);
+		plane = new Plane(300, 700);
 		entities.add(plane);
 
 		shot = new Sound("src/sounds/shot.wav");
-		land = new Image("src/sprites/land.jpg");
+		land = new Image("src/sprites/experiment.jpg");
+		//map = new TiledMap("foobar.tmx"); //TODO Make map and point to it here.
 
 		lastBulletTime = getTime();
 		score = 0;
@@ -85,8 +100,12 @@ public class GamePlayState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		land.draw(0, 0);
-
+		if ((getTime() - lastMapmoveTime) >= 2000) {
+			scrollY--;
+		}
+		land.draw(0, scrollY);
+		//map.render(0, 0);
+		
 		g.setColor(Color.black);
 		g.drawString("Score: " + score, 50, OpenShooterGame.frameHeight - 50);
 

@@ -9,6 +9,12 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import slick.OpenShooter.game.*;
 
+/**
+ * State for main menu
+ * 
+ * @author Sindre Smistad, Fredrik Saevland
+ *
+ */
 public class MainMenuState extends BasicGameState {
 	/**
 	 * Menu background
