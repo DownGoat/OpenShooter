@@ -261,6 +261,40 @@ public class GamePlayState extends BasicGameState {
 		System.out.println("Left of level: "+landscrollY);
 
 	}
+	
+	/**
+	 * This method is called when the state is "entered". 
+	 */
+	@Override
+    public void enter(GameContainer gc, StateBasedGame sb) {
+		try {
+			super.enter(gc, sb);
+		} catch (SlickException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+		try {
+			init(gc, sb);
+		} catch (SlickException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+	}
+	
+	/**
+	 * This method is automatically called when leaving the state.
+	 */
+	public void leave(GameContainer gc, StateBasedGame sbg) {
+		entities = null;
+		enemies = null;
+		bullets = null;
+		score = 0;
+		plane = null;
+		lastBulletTime = 0;
+		lastMapmoveTime = 0;
+		lastEnemyAdded = 0;
+	}
 
 	@Override
 	public int getID() {
