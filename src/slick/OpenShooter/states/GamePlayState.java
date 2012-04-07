@@ -21,7 +21,7 @@ import slick.OpenShooter.game.*;
  * The state that contains the gameplay and the game container
  * 
  * @author Sindre Smistad, Fredrik Saevland
- *
+ * 
  */
 
 public class GamePlayState extends BasicGameState {
@@ -31,9 +31,9 @@ public class GamePlayState extends BasicGameState {
 	 * The background image.
 	 */
 	private Image land = null;
-	
+
 	private TiledMap map = null;
-	
+
 	private Image clouds = null;
 
 	/**
@@ -48,17 +48,8 @@ public class GamePlayState extends BasicGameState {
 
 	private Bullet bullet1, bullet2;
 
-	/**
-	 * Time since last bullet was fired, used to limit the rate of fire.
-	 */
-	private long lastBulletTime;
-	
-	private long lastMapmoveTime;
-
-	private long lastEnemyAdded;
-	
-	private long landscrollY;
-	private long cloudscrollY;
+	private long lastBulletTime, lastMapMoveTime, lastEnemyAdded;
+	private long landscrollY, cloudscrollY;
 
 	float scale = 1;
 	int timer = 0;
@@ -76,6 +67,8 @@ public class GamePlayState extends BasicGameState {
 
 	private long score;
 
+	private boolean pauseState = false;
+
 	public GamePlayState(int stateID) {
 		this.stateID = stateID;
 	}
@@ -84,7 +77,7 @@ public class GamePlayState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		gc.setVSync(true);
-		
+
 		System.out.println("lol");
 
 		entities = new ArrayList<GameObject>();
@@ -97,26 +90,29 @@ public class GamePlayState extends BasicGameState {
 		shot = new Sound("src/sounds/shot.wav");
 		land = new Image("src/sprites/experiment.jpg");
 		clouds = new Image("src/sprites/uglyclouds.png");
-		//map = new TiledMap("foobar.tmx"); //TODO Make map and point to it here.
+		// map = new TiledMap("foobar.tmx"); //TODO Make map and point to it
+		// here.
 
 		lastBulletTime = getTime();
 		System.out.println(land.getHeight());
-		landscrollY = -land.getHeight()+OpenShooterGame.frameHeight;
-		cloudscrollY = -clouds.getHeight()+OpenShooterGame.frameHeight;
+		landscrollY = -land.getHeight() + OpenShooterGame.frameHeight;
+		cloudscrollY = -clouds.getHeight() + OpenShooterGame.frameHeight;
 		score = 0;
+
+		pauseState = false;
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		if ((getTime() - lastMapmoveTime) >= 2000) {
+		if ((getTime() - lastMapMoveTime) >= 2000) {
 			landscrollY++;
-			cloudscrollY+=2;
+			cloudscrollY += 2;
 		}
 		land.draw(0, landscrollY);
 		clouds.draw(0, cloudscrollY);
-		//map.render(0, 0);
-		
+		// map.render(0, 0);
+
 		g.setColor(Color.black);
 		g.drawString("Score: " + score, 50, OpenShooterGame.frameHeight - 50);
 
@@ -195,11 +191,11 @@ public class GamePlayState extends BasicGameState {
 				i.remove();
 				continue;
 			}
-			
-			for(Bullet bullet: bullets) {
-				if(em.intersects(bullet)) {
+
+			for (Bullet bullet : bullets) {
+				if (em.intersects(bullet)) {
 					em.decrementHealth(50);
-					if(em.getHealth() <= 0) {
+					if (em.getHealth() <= 0) {
 						score += em.getScore();
 						i.remove();
 						continue mainWhile;
@@ -249,51 +245,57 @@ public class GamePlayState extends BasicGameState {
 
 		}
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			pauseState = true;
 			sbg.enterState(OpenShooterGame.PAUSESTATE);
 		}
-		/*if (cloudscrollY >= 0){
-			clouds = new Image("src/sprites/uglyclouds.png");
-			cloudscrollY = -clouds.getHeight()+OpenShooterGame.frameHeight;
-		}*/
-		if (landscrollY >= 0){
-			sbg.enterState(OpenShooterGame.PAUSESTATE);
+		/*
+		 * if (cloudscrollY >= 0){ clouds = new
+		 * Image("src/sprites/uglyclouds.png"); cloudscrollY =
+		 * -clouds.getHeight()+OpenShooterGame.frameHeight; }
+		 */
+		if (landscrollY >= 0) {
+			sbg.enterState(OpenShooterGame.GAMEOVERSTATE);
 		}
-		System.out.println("Left of level: "+landscrollY);
+		System.out.println("Left of level: " + landscrollY);
 
 	}
-	
+
 	/**
-	 * This method is called when the state is "entered". 
+	 * This method is called when the state is "entered".
 	 */
 	@Override
-    public void enter(GameContainer gc, StateBasedGame sb) {
+	public void enter(GameContainer gc, StateBasedGame sb) {
 		try {
 			super.enter(gc, sb);
 		} catch (SlickException e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		
+
 		try {
-			init(gc, sb);
+			if (!pauseState) {
+				init(gc, sb);
+			}
 		} catch (SlickException e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
 	}
-	
+
 	/**
 	 * This method is automatically called when leaving the state.
 	 */
 	public void leave(GameContainer gc, StateBasedGame sbg) {
-		entities = null;
-		enemies = null;
-		bullets = null;
-		score = 0;
-		plane = null;
-		lastBulletTime = 0;
-		lastMapmoveTime = 0;
-		lastEnemyAdded = 0;
+		if (!pauseState) {
+			entities = null;
+			enemies = null;
+			bullets = null;
+			score = 0;
+			plane = null;
+			lastBulletTime = 0;
+			lastMapMoveTime = 0;
+			lastEnemyAdded = 0;
+		}
 	}
 
 	@Override
