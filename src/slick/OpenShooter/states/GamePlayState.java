@@ -103,7 +103,6 @@ public class GamePlayState extends BasicGameState {
 		System.out.println(land.getHeight());
 		landscrollY = -land.getHeight()+OpenShooterGame.frameHeight;
 		cloudscrollY = -clouds.getHeight()+OpenShooterGame.frameHeight;
-		cloudscrollY2 = -clouds.getHeight()+OpenShooterGame.frameHeight;
 		score = 0;
 	}
 
@@ -116,9 +115,6 @@ public class GamePlayState extends BasicGameState {
 		}
 		land.draw(0, landscrollY);
 		clouds.draw(0, cloudscrollY);
-		if(cloudscrollY >= 0){
-		clouds.draw(0, cloudscrollY2);
-		}
 		//map.render(0, 0);
 		
 		g.setColor(Color.black);
