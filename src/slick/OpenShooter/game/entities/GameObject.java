@@ -1,4 +1,4 @@
-package slick.OpenShooter.game;
+package slick.OpenShooter.game.entities;
 
 import org.newdawn.slick.geom.Rectangle;
 

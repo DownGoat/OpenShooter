@@ -9,7 +9,7 @@ import slick.OpenShooter.game.*;
  * Mainmethod that sets the displaymode and constructs the gamecontainer
  * 
  * @author Sindre Smistad, Fredrik Saevland
- *
+ * 
  */
 
 public class RunGame {
@@ -20,7 +20,8 @@ public class RunGame {
 	public static void main(String[] args) {
 		AppGameContainer app;
 		try {
-			app = new AppGameContainer(new OpenShooterGame("OpenShooter - Now with 47% more bullets!", 1024, 800));
+			app = new AppGameContainer(new OpenShooterGame(
+					"OpenShooter - Now with 47% more bullets!", 1024, 800));
 			app.setDisplayMode(1024, 800, false);
 			app.start();
 		} catch (SlickException e) {

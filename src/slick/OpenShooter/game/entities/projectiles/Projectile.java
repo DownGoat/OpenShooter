@@ -1,27 +1,24 @@
-package slick.OpenShooter.game;
+package slick.OpenShooter.game.entities.projectiles;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-/**
- * Bullet is the simple representation of a bullet that the plane shoots.
- * @author Sindre Smistad, Fredrik Saevland.
- *
- */
-public class Bullet extends SuperObject {
-	
+import slick.OpenShooter.game.entities.GameObject;
+import slick.OpenShooter.game.entities.SuperObject;
+
+public abstract class Projectile extends SuperObject {
 	Image sprite = null;
 
-	public Bullet(float x, float y){
+	public Projectile(String spritePath, float x, float y){
 		vely = 8;
 		this.x = x + velx;
 		this.y = y - vely;
 		
 		try {
-			sprite = new Image("src/sprites/bullet.png");
+			//"src/sprites/bullet.png"
+			sprite = new Image(spritePath);
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(0);
 		}
@@ -29,7 +26,6 @@ public class Bullet extends SuperObject {
 	
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
 		y-=vely;
 		sprite.draw(x, y);
 	}
@@ -57,4 +53,5 @@ public class Bullet extends SuperObject {
 	public Rectangle getRect() {
 		return new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
 	}
+
 }

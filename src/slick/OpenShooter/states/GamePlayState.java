@@ -16,6 +16,12 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import slick.OpenShooter.game.*;
+import slick.OpenShooter.game.entities.GameObject;
+import slick.OpenShooter.game.entities.Plane;
+import slick.OpenShooter.game.entities.enemies.A10;
+import slick.OpenShooter.game.entities.enemies.Enemy;
+import slick.OpenShooter.game.entities.projectiles.Projectile;
+import slick.OpenShooter.game.entities.projectiles.SimpleBullet;
 
 /**
  * The state that contains the gameplay and the game container
@@ -46,7 +52,7 @@ public class GamePlayState extends BasicGameState {
 	 */
 	private Plane plane;
 
-	private Bullet bullet1, bullet2;
+	private Projectile projectile1, projectile2;
 
 	private long lastBulletTime, lastMapMoveTime, lastEnemyAdded;
 	private long landscrollY, cloudscrollY;
@@ -63,7 +69,7 @@ public class GamePlayState extends BasicGameState {
 
 	private ArrayList<Enemy> enemies;
 
-	private ArrayList<Bullet> bullets;
+	private ArrayList<Projectile> projectiles;
 
 	private long score;
 
@@ -78,11 +84,9 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		gc.setVSync(true);
 
-		System.out.println("lol");
-
 		entities = new ArrayList<GameObject>();
 		enemies = new ArrayList<Enemy>();
-		bullets = new ArrayList<Bullet>();
+		projectiles = new ArrayList<Projectile>();
 
 		plane = new Plane(300, 700);
 		entities.add(plane);
@@ -142,22 +146,22 @@ public class GamePlayState extends BasicGameState {
 			em.draw();
 		}
 
-		Iterator<Bullet> ib = bullets.iterator();
-		while (ib.hasNext()) {
-			Bullet bullet = ib.next();
+		Iterator<Projectile> ip = projectiles.iterator();
+		while (ip.hasNext()) {
+			Projectile projectile = ip.next();
 
 			/*
 			 * Checks if the GameObject is inside the screen. If it is it is
 			 * removed and we continue.
 			 */
-			if (bullet.getX() < 0 || bullet.getX() > gc.getWidth()
-					|| bullet.getY() < 0 || bullet.getY() > gc.getHeight()) {
+			if (projectile.getX() < 0 || projectile.getX() > gc.getWidth()
+					|| projectile.getY() < 0 || projectile.getY() > gc.getHeight()) {
 
-				ib.remove();
+				ip.remove();
 				continue;
 			}
 
-			bullet.draw();
+			projectile.draw();
 		}
 
 		plane.draw();
@@ -168,7 +172,7 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 
 		if ((getTime() - lastEnemyAdded) >= 2000) {
-			Enemy em = new Enemy();
+			Enemy em = new A10("src/sprites/a10.png");
 
 			entities.add(em);
 			enemies.add(em);
@@ -192,8 +196,8 @@ public class GamePlayState extends BasicGameState {
 				continue;
 			}
 
-			for (Bullet bullet : bullets) {
-				if (em.intersects(bullet)) {
+			for (Projectile projectile : projectiles) {
+				if (em.intersects(projectile)) {
 					em.decrementHealth(50);
 					if (em.getHealth() <= 0) {
 						score += em.getScore();
@@ -236,13 +240,12 @@ public class GamePlayState extends BasicGameState {
 			 */
 			if ((getTime() - lastBulletTime) >= RoF) { // RoF = Rate of Fire
 				lastBulletTime = getTime();
-				bullet1 = new Bullet(plane.getX(), plane.getY() + 35);
-				bullets.add(bullet1);
-				bullet2 = new Bullet(plane.getX() + 81, plane.getY() + 35);
-				bullets.add(bullet2);
+				projectile1 = new SimpleBullet("src/sprites/bullet.png", plane.getX(), plane.getY() + 35);
+				projectiles.add(projectile1);
+				projectile2 = new SimpleBullet("src/sprites/bullet.png", plane.getX() + 81, plane.getY() + 35);
+				projectiles.add(projectile2);
 				shot.play();
 			}
-
 		}
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			pauseState = true;
@@ -289,7 +292,7 @@ public class GamePlayState extends BasicGameState {
 		if (!pauseState) {
 			entities = null;
 			enemies = null;
-			bullets = null;
+			projectiles = null;
 			score = 0;
 			plane = null;
 			lastBulletTime = 0;

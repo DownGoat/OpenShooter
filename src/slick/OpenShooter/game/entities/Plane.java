@@ -1,4 +1,4 @@
-package slick.OpenShooter.game;
+package slick.OpenShooter.game.entities;
 
 import org.lwjgl.Sys;
 import org.newdawn.slick.Animation;
@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
+
 
 /**
  * Plane that the player controls.

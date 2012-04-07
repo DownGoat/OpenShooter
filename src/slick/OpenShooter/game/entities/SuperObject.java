@@ -1,7 +1,8 @@
-package slick.OpenShooter.game;
+package slick.OpenShooter.game.entities;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+
 
 /**
  * Abstract super class for the GameObject interface, implements some of the methods.

@@ -1,4 +1,4 @@
-package slick.OpenShooter.game;
+package slick.OpenShooter.game.entities.enemies;
 
 import java.util.Random;
 
@@ -6,24 +6,28 @@ import org.lwjgl.Sys;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+
+import slick.OpenShooter.game.OpenShooterGame;
+import slick.OpenShooter.game.entities.GameObject;
+import slick.OpenShooter.game.entities.SuperObject;
+
 /**
- * The A10 enemy
- * Enemy extends the SuperObject abstract class which again is a subclass
- * of the GameObject class. 
+ * The A10 enemy Enemy extends the SuperObject abstract class which again is a
+ * subclass of the GameObject class.
  * 
  * @author Sindre Smistad, Fredrik Saevland
- *
+ * 
  */
-public class Enemy extends SuperObject {
+public abstract class Enemy extends SuperObject {
 
-	private int health;
-	private int score;
-	private Image sprite;
-	private float velocity = 0.35f;
+	protected int health;
+	protected int score;
+	protected Image sprite;
+	protected float velocity = 0.35f;
 
-	public Enemy() {
+	public Enemy(String spritePath) {
 		try {
-			sprite = new Image("src/sprites/a10.png");
+			sprite = new Image(spritePath);
 		} catch (SlickException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -82,14 +86,14 @@ public class Enemy extends SuperObject {
 
 	public boolean intersects(GameObject go) {
 		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
-		
-		if(rect.intersects(go.getRect())){
+
+		if (rect.intersects(go.getRect())) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public Rectangle getRect() {
 		return new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
 	}
