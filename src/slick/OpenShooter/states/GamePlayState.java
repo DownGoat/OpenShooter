@@ -81,6 +81,8 @@ public class GamePlayState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		gc.setVSync(true);
+		
+		System.out.println("lol");
 
 		entities = new ArrayList<GameObject>();
 		enemies = new ArrayList<Enemy>();
