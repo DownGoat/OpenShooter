@@ -91,7 +91,7 @@ public class GamePlayState extends BasicGameState {
 		plane = new Plane(300, 700);
 		entities.add(plane);
 
-		shot = new Sound("src/sounds/shot.wav");
+		shot = new Sound("src/sounds/pewpew.wav");
 		land = new Image("src/sprites/experiment.jpg");
 		clouds = new Image("src/sprites/uglyclouds.png");
 		// map = new TiledMap("foobar.tmx"); //TODO Make map and point to it
@@ -240,9 +240,9 @@ public class GamePlayState extends BasicGameState {
 			 */
 			if ((getTime() - lastBulletTime) >= RoF) { // RoF = Rate of Fire
 				lastBulletTime = getTime();
-				projectile1 = new SimpleBullet("src/sprites/bullet.png", plane.getX(), plane.getY() + 35);
+				projectile1 = new SimpleBullet("src/sprites/lazer.png", plane.getX(), plane.getY() + 35);
 				projectiles.add(projectile1);
-				projectile2 = new SimpleBullet("src/sprites/bullet.png", plane.getX() + 81, plane.getY() + 35);
+				projectile2 = new SimpleBullet("src/sprites/lazer.png", plane.getX() + 81, plane.getY() + 35);
 				projectiles.add(projectile2);
 				shot.play();
 			}

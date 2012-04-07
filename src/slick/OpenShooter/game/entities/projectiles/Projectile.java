@@ -8,7 +8,7 @@ import slick.OpenShooter.game.entities.GameObject;
 import slick.OpenShooter.game.entities.SuperObject;
 
 public abstract class Projectile extends SuperObject {
-	Image sprite = null;
+	protected Image sprite = null;
 
 	public Projectile(String spritePath, float x, float y){
 		vely = 8;
@@ -16,7 +16,6 @@ public abstract class Projectile extends SuperObject {
 		this.y = y - vely;
 		
 		try {
-			//"src/sprites/bullet.png"
 			sprite = new Image(spritePath);
 		} catch (SlickException e) {
 			e.printStackTrace();
