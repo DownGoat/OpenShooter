@@ -33,6 +33,8 @@ public class GamePlayState extends BasicGameState {
 	private Image land = null;
 	
 	private TiledMap map = null;
+	
+	private Image clouds = null;
 
 	/**
 	 * Sound played when shooting a bullet.
@@ -55,7 +57,8 @@ public class GamePlayState extends BasicGameState {
 
 	private long lastEnemyAdded;
 	
-	private long scrollY;
+	private long landscrollY;
+	private long cloudscrollY;
 
 	float scale = 1;
 	int timer = 0;
@@ -91,11 +94,14 @@ public class GamePlayState extends BasicGameState {
 
 		shot = new Sound("src/sounds/shot.wav");
 		land = new Image("src/sprites/experiment.jpg");
+		clouds = new Image("src/sprites/uglyclouds.png");
 		//map = new TiledMap("foobar.tmx"); //TODO Make map and point to it here.
 
 		lastBulletTime = getTime();
 		System.out.println(land.getHeight());
-		scrollY = -land.getHeight()+OpenShooterGame.frameHeight;
+		landscrollY = -land.getHeight()+OpenShooterGame.frameHeight;
+		cloudscrollY = -clouds.getHeight()+OpenShooterGame.frameHeight;
+		cloudscrollY2 = -clouds.getHeight()+OpenShooterGame.frameHeight;
 		score = 0;
 	}
 
@@ -103,9 +109,14 @@ public class GamePlayState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		if ((getTime() - lastMapmoveTime) >= 2000) {
-			scrollY++;
+			landscrollY++;
+			cloudscrollY+=2;
 		}
-		land.draw(0, scrollY);
+		land.draw(0, landscrollY);
+		clouds.draw(0, cloudscrollY);
+		if(cloudscrollY >= 0){
+		clouds.draw(0, cloudscrollY2);
+		}
 		//map.render(0, 0);
 		
 		g.setColor(Color.black);
@@ -242,10 +253,14 @@ public class GamePlayState extends BasicGameState {
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			sbg.enterState(OpenShooterGame.PAUSESTATE);
 		}
-		if (scrollY >= 0){
+		/*if (cloudscrollY >= 0){
+			clouds = new Image("src/sprites/uglyclouds.png");
+			cloudscrollY = -clouds.getHeight()+OpenShooterGame.frameHeight;
+		}*/
+		if (landscrollY >= 0){
 			sbg.enterState(OpenShooterGame.PAUSESTATE);
 		}
-		System.out.println("Left of level: "+scrollY);
+		System.out.println("Left of level: "+landscrollY);
 
 	}
 
