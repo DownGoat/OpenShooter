@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="100" tilewidth="40" tileheight="40">
+ <tileset firstgid="1" name="land" tilewidth="40" tileheight="40">
+  <image source="../graphics/terrain/land_sheet.png" width="200" height="40"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1kkKgDAMBdBq9f5X1o0QQmumv2jhL7JReGZog721doPieqOrZ4eKqneJ0O9W8E4RCA89j1U9OQdkfn+m9a1Zvdkcd/XQ52W3/Lx7y5ufdxdG+lfxsjV78ovM2spP3uVqvTo/lFc9f33yjWh+fRCV/Cwj079qL0fezMzON9u7kffdez2X7D6o/FvN6h3ZCM87g4iHrJcevYhX3ad/nnfnWF5011r9kybCk6an5p3PCz169OjRo0ePHj169OjRo0dvX+8BNXMlFQ==
+  </data>
+ </layer>
+</map>

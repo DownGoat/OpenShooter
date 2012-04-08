@@ -55,7 +55,9 @@ public class GamePlayState extends BasicGameState {
 	private Projectile projectile1, projectile2;
 
 	private long lastBulletTime, lastMapMoveTime, lastEnemyAdded;
-	private long landscrollY, cloudscrollY;
+	int landscrollY;
+
+	private long cloudscrollY;
 
 	float scale = 1;
 	int timer = 0;
@@ -94,12 +96,13 @@ public class GamePlayState extends BasicGameState {
 		shot = new Sound("src/sounds/pewpew.wav");
 		land = new Image("src/sprites/experiment.jpg");
 		clouds = new Image("src/sprites/uglyclouds.png");
-		// map = new TiledMap("foobar.tmx"); //TODO Make map and point to it
+		map = new TiledMap("src/sprites/terrain/level1.tmx"); //TODO Make map and point to it
 		// here.
 
 		lastBulletTime = getTime();
-		System.out.println(land.getHeight());
-		landscrollY = -land.getHeight() + OpenShooterGame.frameHeight;
+		System.out.println(map.getHeight());
+		landscrollY = map.getHeight();
+		//landscrollY = -map.getHeight() + OpenShooterGame.frameHeight;
 		cloudscrollY = -clouds.getHeight() + OpenShooterGame.frameHeight;
 		score = 0;
 
@@ -110,10 +113,10 @@ public class GamePlayState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		if ((getTime() - lastMapMoveTime) >= 2000) {
-			landscrollY++;
+			landscrollY--;
 			cloudscrollY += 2;
 		}
-		land.draw(0, landscrollY);
+		map.render(0, landscrollY);
 		clouds.draw(0, cloudscrollY);
 		// map.render(0, 0);
 
@@ -256,8 +259,8 @@ public class GamePlayState extends BasicGameState {
 		 * Image("src/sprites/uglyclouds.png"); cloudscrollY =
 		 * -clouds.getHeight()+OpenShooterGame.frameHeight; }
 		 */
-		if (landscrollY >= 0) {
-			sbg.enterState(OpenShooterGame.GAMEOVERSTATE);
+		if (landscrollY <= 0) {
+			//sbg.enterState(OpenShooterGame.GAMEOVERSTATE);
 		}
 		System.out.println("Left of level: " + landscrollY);
 
