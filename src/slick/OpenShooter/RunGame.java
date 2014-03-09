@@ -18,6 +18,7 @@ public class RunGame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+        System.out.println("Starting Game...");
 		AppGameContainer app;
 		try {
 			app = new AppGameContainer(new OpenShooterGame(
